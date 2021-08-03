@@ -1,0 +1,117 @@
+#带有材质的物品：这个物品具有哪些材质
+equipment:
+  hoe:
+    - wooden
+    - stone
+    - iron
+    - diamond
+    - golden
+  pickaxe:
+    - wooden
+    - stone
+    - iron
+    - diamond
+    - golden
+  axe:
+    - wooden
+    - stone
+    - iron
+    - diamond
+    - golden
+  shovel:
+    - wooden
+    - stone
+    - iron
+    - diamond
+    - golden
+  sword:
+    - wooden
+    - stone
+    - iron
+    - diamond
+    - golden
+  helmet:
+    - leather
+    - chainmail
+    - iron
+    - diamond
+    - golden
+  boots:
+    - leather
+    - chainmail
+    - iron
+    - diamond
+    - golden
+  chestplate:
+    - leather
+    - chainmail
+    - iron
+    - diamond
+    - golden
+  leggings:
+    - leather
+    - chainmail
+    - iron
+    - diamond
+    - golden
+
+#这个物品能附哪些魔
+# 锄hoe 镐pickaxe 斧axe 锹shovel 剑sword 头盔helmet 甲chestplate 裤子leggings 鞋boots
+magic:
+  hoe:
+    - 16
+    - 17
+    - 18
+    - 15
+  pickaxe:
+    - 16
+    - 17
+    - 18
+    - 15
+  axe:
+    - 15
+    - 18
+    - 16
+    - 17
+  shovel:
+    - 15
+    - 18
+    - 16
+    - 17
+  sword:
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    - 17
+  helmet:
+    - 0
+    - 1
+    - 3
+    - 4
+    - 6
+    - 8
+    - 17
+  chestplate:
+    - 0
+    - 1
+    - 3
+    - 4
+    - 5
+    - 17
+  leggings:
+    - 0
+    - 1
+    - 3
+    - 4
+    - 17
+  boots:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 7
+    - 17
