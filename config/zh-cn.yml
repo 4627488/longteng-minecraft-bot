@@ -1,3 +1,5 @@
+#物品id对应的中文名称
+#如果物品带有材质则先带材质匹配，没有再分开匹配
 flint_and_steel: 打火石
 apple: 苹果
 bow: 弓
@@ -25,3 +27,7 @@ leggings: 护腿
 boots: 靴子
 chainmail: 锁链
 leather: 皮革
+chicken: 生鸡肉
+cod: 鳕鱼
+carrot: 胡萝卜
+bucket: 桶

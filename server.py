@@ -1,16 +1,23 @@
 import os
 from ruamel import yaml
 
-SERVER_DIR = '/home/h4627488/minecraft/midsummer/'
-RCON_PASSWORD='pw'
+
+def ReadConfig():
+    with open('config/config.yml', 'r', encoding='utf-8') as f:
+        config = yaml.load(f.read(), Loader=yaml.Loader)
+    return config['mcrcon']['server'], config['mcrcon']['port'], config['mcrcon']['password']
+
 
 def checkOnline():
-    return os.system(f'./mcrcon -c -p {RCON_PASSWORD} tps') == 0
+    server, port, password = ReadConfig()
+    return os.system(f'./mcrcon -H {server} -P {port} -c -p {password} tps') == 0
 
 
 def runshell(command):
     print(f'[RCON]{command}')
-    re = str(os.popen(f"./mcrcon -c -p {RCON_PASSWORD} '{command}'").read())
+    server, port, password = ReadConfig()
+    re = str(os.popen(
+        f"./mcrcon -H {server} -P {port} -c -p {password} '{command}'").read())
     return re.split('\n')[0]
 
 
@@ -30,6 +37,9 @@ def status(text, chat, senderid, sendmsg):
 
 
 def backup(text, chat, senderid, sendmsg):
+    with open('config/config.yml', 'r', encoding='utf-8') as f:
+        config = yaml.load(f.read(), Loader=yaml.Loader)
+    server_path = config['backup']['server_path']
     adminlist = None
     with open('admin.yml', 'r', encoding='utf-8') as f:
         adminlist = yaml.load(f.read(), Loader=yaml.Loader)
@@ -39,21 +49,27 @@ def backup(text, chat, senderid, sendmsg):
         return
     sendmsg(chat, '正在备份服务器存档，请勿滥用此功能，此项操作将被记录')
     # ret=0
-    ret = os.system(f'cd {SERVER_DIR} && python3 backup.py')
+    ret = os.system(f'cd {server_path} && python3 backup.py')
     if ret == 0:
-        file_stats = os.stat(f"{SERVER_DIR}backup.zip")
+        file_stats = os.stat(f"{server_path}/backup.zip")
+        size = file_stats.st_size/(1024*1024)
         sendmsg(
-            chat, f'成功备份存档到COS。联系4627488获取存档文件,存档大小{file_stats.st_size/(1024*1024):.1}M')
+            chat, f'成功备份存档到COS。存档大小{round(size, 2)}M')
     else:
         sendmsg(chat, '备份失败')
 
 
 def GetPlayerName(qq: int):
-    with open(f'{SERVER_DIR}plugins/EasyBot_Reloaded/boundData.yml', 'r', encoding='utf-8') as f:
+    with open('config/config.yml', 'r', encoding='utf-8') as f:
+        config = yaml.load(f.read(), Loader=yaml.Loader)
+    data_path = config['ohayo']['Easybot_data']
+    with open(data_path, 'r', encoding='utf-8') as f:
         bound = yaml.load(f.read(), Loader=yaml.Loader)
     if str(qq) in bound['QQ_Bound'].keys():
         return bound['QQ_Bound'][str(qq)]
     runshell("bot reload")
+    with open(data_path, 'r', encoding='utf-8') as f:
+        bound = yaml.load(f.read(), Loader=yaml.Loader)
     if str(qq) in bound['QQ_Bound'].keys():
         return bound['QQ_Bound'][str(qq)]
     return None

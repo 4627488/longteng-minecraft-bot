@@ -1,0 +1,15 @@
+mirai:
+  qq: 2840785562
+  verify_key: 4627488400
+  port: 4627
+
+mcrcon:
+  server: 127.0.0.1
+  port: 25575
+  password: 091831
+
+backup:
+  server_path: "/home/h4627488/minecraft/midsummer/"
+
+ohayo:
+  Easybot_data: "/home/h4627488/minecraft/midsummer/plugins/EasyBot_Reloaded/boundData.yml"

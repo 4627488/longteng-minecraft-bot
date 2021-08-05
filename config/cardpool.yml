@@ -1,0 +1,40 @@
+#卡池
+#根据稀有度定义物品
+object:
+  N:
+    - apple
+    - chicken
+    - cod
+    - carrot
+    - stick
+    - mushroom_stew
+    - hoe
+    - axe
+    - shovel
+    - helmet
+    - leggings
+    - boots
+    - flint_and_steel
+    - bucket
+    - coal
+  SR:
+    - iron_ingot
+    - gold_ingot
+    - sword
+    - pickaxe
+    - chestplate
+  SSR:
+    - diamon
+
+#材料的概率
+material:
+  N:
+    - wooden
+    - leather
+  SR:
+    - stone
+    - chainmail
+    - iron
+  SSR:
+    - golden
+    - diamond

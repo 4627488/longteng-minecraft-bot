@@ -1,3 +1,10 @@
+#不同稀有度在此定义
+#在 cardpool.yml 中定义稀有度对应的物品列表
+probability:
+  N: 50
+  SR: 30
+  SSR: 10
+
 #带有材质的物品：这个物品具有哪些材质
 equipment:
   hoe:
