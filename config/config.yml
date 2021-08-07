@@ -1,15 +1,17 @@
 mirai:
-  qq: 2840785562
-  verify_key: 4627488400
-  port: 4627
+  qq: 12345678
+  verify_key: 12345678
+  port: 8080
 
 mcrcon:
   server: 127.0.0.1
   port: 25575
-  password: 091831
+  password: "12345678"
 
 backup:
+  #服务器所在文件夹
   server_path: "/home/h4627488/minecraft/midsummer/"
 
 ohayo:
+  #读取Easybot的数据获得游戏名和qq的对照表
   Easybot_data: "/home/h4627488/minecraft/midsummer/plugins/EasyBot_Reloaded/boundData.yml"

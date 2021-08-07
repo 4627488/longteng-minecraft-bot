@@ -10,14 +10,14 @@ def ReadConfig():
 
 def checkOnline():
     server, port, password = ReadConfig()
-    return os.system(f'./mcrcon -H {server} -P {port} -c -p {password} tps') == 0
+    return os.system(f'./mcrcon/mcrcon -H {server} -P {port} -c -p {password} tps') == 0
 
 
 def runshell(command):
     print(f'[RCON]{command}')
     server, port, password = ReadConfig()
     re = str(os.popen(
-        f"./mcrcon -H {server} -P {port} -c -p {password} '{command}'").read())
+        f"./mcrcon/mcrcon -H {server} -P {port} -c -p {password} '{command}'").read())
     return re.split('\n')[0]
 
 
@@ -41,7 +41,7 @@ def backup(text, chat, senderid, sendmsg):
         config = yaml.load(f.read(), Loader=yaml.Loader)
     server_path = config['backup']['server_path']
     adminlist = None
-    with open('admin.yml', 'r', encoding='utf-8') as f:
+    with open('config/admin.yml', 'r', encoding='utf-8') as f:
         adminlist = yaml.load(f.read(), Loader=yaml.Loader)
         print(adminlist)
     if senderid not in adminlist:
@@ -76,7 +76,7 @@ def GetPlayerName(qq: int):
 
 
 def backpack(text, chat, senderid, sendmsg):
-    with open(f'backpack.yml', 'r', encoding='utf-8') as f:
+    with open('data/backpack.yml', 'r', encoding='utf-8') as f:
         backpack = yaml.load(f.read(), Loader=yaml.Loader)
     playerName = GetPlayerName(senderid)
     if backpack == None or senderid not in backpack.keys():
@@ -90,5 +90,5 @@ def backpack(text, chat, senderid, sendmsg):
             ret = runshell(obj['command'].replace(str(senderid), playerName))
             sendmsg(chat, ret)
         backpack[senderid] = list()
-        with open("backpack.yml", "w", encoding="utf-8") as f:
+        with open("data/backpack.yml", "w", encoding="utf-8") as f:
             yaml.dump(backpack, f, Dumper=yaml.RoundTripDumper)

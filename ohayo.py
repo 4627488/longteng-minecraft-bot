@@ -3,7 +3,6 @@ import time
 from miraicle.message import At, Plain
 
 from ruamel import yaml
-from ruamel.yaml import tokens
 
 lv = {"I": 1,
       "II": 2,
@@ -32,7 +31,13 @@ def RandomLevel():
 def GetCommand(obj: str, magic: list, player: str, probability: str):
     # 里面有{}不能fstring,没关系可以先转义
     # TODO 没有处理附魔，因为附魔id改成minecraft:xxx这种了,我不会
-    give = 'give PLAYER minecraft:OBJECT{display:{Name:"[{\\"text\\":\\"DIFF CNNAME\\",\\"color\\":\\"gold\\",\\"bold\\":false,\\"italic\\":false,\\"underlined\\":false,\\"strikethrough\\":false,\\"obfuscated\\":false}]",Lore:["{\\"text\\":\\"DATE签到获得\\",\\"color\\":\\"blue\\",\\"bold\\":false,\\"italic\\":false,\\"underlined\\":false,\\"strikethrough\\":false,\\"obfuscated\\":false}"]}} 1'
+    with open('config/cardpool.yml', 'r', encoding='utf-8') as f:
+        cardpool = yaml.load(f.read(), Loader=yaml.Loader)
+    if str(obj) in cardpool['command'].keys():
+        give = cardpool['command'][obj]
+    else:
+        give = cardpool['command']['default']
+    print(give)
     give = give.replace("PLAYER", str(player))
     give = give.replace("OBJECT", str(obj))
     give = give.replace("CNNAME", GetText(obj, magic))
@@ -79,7 +84,7 @@ def record(qq: int, command: str, cnname: str):
         yaml.dump(history, f, Dumper=yaml.RoundTripDumper)
 
 
-def gacha(text, chat, senderid, sendmsg):
+def gacha(text, chat, senderid, sendmsg, isFree=False):
     with open('config/cards.yml', 'r', encoding='utf-8') as f:
         cards = yaml.load(f.read(), Loader=yaml.Loader)
     with open('config/cardpool.yml', 'r', encoding='utf-8') as f:
@@ -102,17 +107,20 @@ def gacha(text, chat, senderid, sendmsg):
                 material_list.append(material)
         selected_material = random.choice(material_list)
         selected_object = f'{selected_material}_{selected_object}'
-
+    if isFree:
+        sendmsg(chat, f"正在进行模拟抽卡，抽卡记录不会生效，但会计入个人欧气统计")
     if material_level == None:
         sendmsg(
-            chat, f"抽卡成功！\n 获得：{GetText(selected_object, selected_magics)} \n 物品稀有度：[{object_level}]")
-        record(senderid, GetCommand(selected_object, selected_magics, str(
-            senderid), object_level), GetText(selected_object, selected_magics))
+            chat, f"抽卡成功！\n 获得：{GetText(selected_object, selected_magics)} *1\n 物品稀有度：[{object_level}]")
+        if not isFree:
+            record(senderid, GetCommand(selected_object, selected_magics, str(
+                senderid), object_level), GetText(selected_object, selected_magics))
     else:
         sendmsg(
-            chat, f"抽卡成功！\n 获得：{GetText(selected_object, selected_magics)} \n 物品稀有度：[{object_level}]，材质稀有度：[{material_level}]")
-        record(senderid, GetCommand(selected_object, selected_magics, str(
-            senderid), material_level), GetText(selected_object, selected_magics))
+            chat, f"抽卡成功！\n 获得：{GetText(selected_object, selected_magics)} *1\n 物品稀有度：[{object_level}]，材质稀有度：[{material_level}]")
+        if not isFree:
+            record(senderid, GetCommand(selected_object, selected_magics, str(
+                senderid), material_level), GetText(selected_object, selected_magics))
 
 
 def ohayo(text, chat, senderid, sendmsg):
@@ -128,7 +136,7 @@ def ohayo(text, chat, senderid, sendmsg):
         sendmsg(chat, [At(senderid), Plain(
             f'\n签到成功，你是今天第{len(checkin[today])}个签到的人！')])
         gacha(text, chat, senderid, sendmsg)
-        with open("ohayo.yml", "w", encoding="utf-8") as f:
+        with open("data/ohayo.yml", "w", encoding="utf-8") as f:
             yaml.dump(checkin, f, Dumper=yaml.RoundTripDumper)
     else:
         sendmsg(chat, [At(senderid), Plain(f'\n你已经签到过了')])

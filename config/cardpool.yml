@@ -17,24 +17,35 @@ object:
     - flint_and_steel
     - bucket
     - coal
-  SR:
+  R:
     - iron_ingot
-    - gold_ingot
     - sword
     - pickaxe
     - chestplate
+  SR:
+    - diamond
+    - gold_ingot
   SSR:
-    - diamon
+    - green_cap
+    - lord_bar
 
 #材料的概率
 material:
   N:
     - wooden
     - leather
-  SR:
     - stone
+  R:
     - chainmail
     - iron
-  SSR:
+  SR:
     - golden
+  SSR:
     - diamond
+
+#特殊物品命令模板
+#使用变量：PLAYER 玩家名 OBJECT DIFF CNNAME DATE
+command:
+  default: give PLAYER minecraft:OBJECT{display:{Name:"[{\"text\":\"DIFF CNNAME\",\"color\":\"gold\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]",Lore:["{\"text\":\"DATE签到获得\",\"color\":\"blue\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]}} 1
+  green_cap: give PLAYER minecraft:turtle_helmet{AttributeModifiers:[{Operation:1,Amount:2,UUIDLeast:-1574955261329989985L,UUIDMost:2873227125954511779L,Slot:head,AttributeName:"generic.maxHealth",Name:"generic.maxHealth"},{Operation:1,Amount:2,UUIDLeast:-1877725335795725812L,UUIDMost:2298985684719994623L,Slot:head,AttributeName:"generic.armor",Name:"generic.armor"},{Operation:1,Amount:1,UUIDLeast:-1815723785632532149L,UUIDMost:2841419256275268153L,Slot:head,AttributeName:"generic.armorToughness",Name:"generic.armorToughness"},{Operation:0,Amount:1,UUIDLeast:-1998842431166919112L,UUIDMost:2677918382911716846L,Slot:head,AttributeName:"generic.followRange",Name:"generic.followRange"}],display:{Name:"[{\"text\":\"[SSR]\",\"color\":\"gold\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false},{\"text\":\"绿帽子\",\"color\":\"dark_purple\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]",Lore:["{\"text\":\"简约设计，龙腾出品\",\"color\":\"white\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}","{\"text\":\"你获得了这个不应该反思一下吗\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":true,\"obfuscated\":false}","{\"text\":\"DATE 签到获得\",\"color\":\"blue\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]},Unbreakable:1} 1
+  lord_bar: give PLAYER minecraft:stick{AttributeModifiers:[{Operation:0,Amount:80,UUIDLeast:-1698299832574334238L,UUIDMost:2125849857888822421L,Slot:mainhand,AttributeName:"generic.attackDamage",Name:"generic.attackDamage"},{Operation:0,Amount:2,UUIDLeast:-1675577177938623911L,UUIDMost:2629345627935485255L,Slot:mainhand,AttributeName:"generic.attackSpeed",Name:"generic.attackSpeed"}],display:{Name:"[{\"text\":\"[SSR]\",\"color\":\"gold\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false},{\"text\":\"上帝权杖\",\"color\":\"dark_purple\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]",Lore:["{\"text\":\"来自实验中学综合电教室的木棍\",\"color\":\"gray\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}","{\"text\":\"据说拯救了很多人的生命\",\"color\":\"dark_gray\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}","{\"text\":\"因此获得了放电的能力\",\"color\":\"dark_gray\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}","{\"text\":\"DATE 签到获得\",\"color\":\"blue\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]},Unbreakable:1,Enchantments:[{id:"minecraft:knockback",lvl:3}]} 1
